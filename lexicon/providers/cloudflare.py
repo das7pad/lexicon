@@ -18,6 +18,8 @@ def provider_parser(subparser):
         "--auth-username", help="specify email address for authentication")
     subparser.add_argument(
         "--auth-token", help="specify token for authentication")
+    subparser.add_argument(
+        "--zone-id", help="specify zone id (if not set: query API for the id)")
 
 
 class Provider(BaseProvider):
@@ -28,6 +30,9 @@ class Provider(BaseProvider):
         self.api_endpoint = 'https://api.cloudflare.com/client/v4'
 
     def _authenticate(self):
+        self.domain_id = self._get_provider_option('zone_id')
+        if self.domain_id:
+            return
 
         payload = self._get('/zones', {
             'name': self.domain,
