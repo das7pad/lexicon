@@ -15,6 +15,8 @@ NAMESERVER_DOMAINS = ['cloudflare.com']
 def provider_parser(subparser):
     """Return the parser for this provider"""
     subparser.add_argument(
+        "--api-token", help="specify standalone api token for authentication")
+    subparser.add_argument(
         "--auth-username", help="specify email address for authentication")
     subparser.add_argument(
         "--auth-token", help="specify token for authentication")
@@ -135,13 +137,20 @@ class Provider(BaseProvider):
             data = {}
         if query_params is None:
             query_params = {}
+
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        api_token = self._get_provider_option('api_token')
+        if api_token:
+            headers['Authorization'] = 'Bearer %s' % api_token
+        else:
+            headers['X-Auth-Email'] = self._get_provider_option('auth_username')
+            headers['X-Auth-Key'] = self._get_provider_option('auth_token')
+
         response = requests.request(action, self.api_endpoint + url, params=query_params,
                                     data=json.dumps(data),
-                                    headers={
-                                        'X-Auth-Email': self._get_provider_option('auth_username'),
-                                        'X-Auth-Key': self._get_provider_option('auth_token'),
-                                        'Content-Type': 'application/json'
-                                    })
+                                    headers=headers)
         # if the request fails for any reason, throw an error.
         response.raise_for_status()
         return response.json()
