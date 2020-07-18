@@ -57,7 +57,7 @@ extras_require = {
 extras_require['full'] = [dep for name, deps in extras_require.items() if name != 'dev' for dep in deps]
 
 setup(
-    name='dns-lexicon',
+    name='das7pad-dns-lexicon',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
