@@ -28,6 +28,8 @@ def provider_parser(subparser):
         "--private-zone",
         help=("indicates what kind of hosted zone to use. If true, use "
               "only private zones. If false, use only public zones"))
+    subparser.add_argument(
+        "--domain-id", help="specify zone id (if not set: validate zone-id)")
 
     # TODO: these are only required for testing, we should figure out
     # a way to remove them & update the integration tests
@@ -122,6 +124,9 @@ class Provider(BaseProvider):
 
     def _authenticate(self):
         """Determine the hosted zone id for the domain."""
+        self.domain_id = self._get_provider_option('domain_id')
+        if self.domain_id:
+            return
         try:
             hosted_zones = self.r53_client.list_hosted_zones_by_name()[
                 'HostedZones'
