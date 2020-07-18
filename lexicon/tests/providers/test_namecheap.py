@@ -45,13 +45,13 @@ from unittest import TestCase
 
 import pytest
 
-from lexicon.tests.providers.integration_tests import IntegrationTests
+from lexicon.tests.providers.integration_tests import IntegrationTestsV2
 
 
 # Hook into testing framework by inheriting unittest.TestCase and reuse
 # the tests which *each and every* implementation of the interface must
 # pass, by inheritance from integration_tests.IntegrationTests
-class NamecheapProviderTests(TestCase, IntegrationTests):
+class NamecheapProviderTests(TestCase, IntegrationTestsV2):
     """TestCase for Namecheap"""
     provider_name = 'namecheap'
 
@@ -62,7 +62,7 @@ class NamecheapProviderTests(TestCase, IntegrationTests):
             LEXICON_NAMECHEAP_DOMAIN
         """
         env_domain = os.environ.get('LEXICON_NAMECHEAP_DOMAIN', None)
-        return env_domain or 'example-aptise.com'
+        return env_domain or 'unittest2.dev'
 
     def _filter_query_parameters(self):
         return ['ApiKey', 'UserName', 'ApiUser']
@@ -98,4 +98,4 @@ class NamecheapManagedProviderTests(NamecheapProviderTests):
             LEXICON_NAMECHEAP_DOMAINMANAGED
         """
         env_domain = os.environ.get('LEXICON_NAMECHEAP_DOMAINMANAGED', None)
-        return env_domain or 'example-aptise-2.com'
+        return env_domain or 'unittest-seconddomain.dev'

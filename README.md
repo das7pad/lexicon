@@ -46,6 +46,7 @@ The current supported providers are:
 - DNSPark ([docs](https://dnspark.zendesk.com/entries/31210577-REST-API-DNS-Documentation))
 - DNSPod ([docs](https://support.dnspod.cn/Support/api))
 - Dreamhost ([docs](https://help.dreamhost.com/hc/en-us/articles/217560167-API_overview))
+- Dynu ([docs](https://www.dynu.com/Support/API))
 - EasyDNS ([docs](http://docs.sandbox.rest.easydns.net/))
 - Easyname ([docs](https://www.easyname.com/en))
 - EUserv ([docs](https://support.euserv.com/api-doc/))
@@ -58,7 +59,7 @@ The current supported providers are:
 - Gransy (sites subreg.cz, regtons.com and regnames.eu, [docs](https://subreg.cz/manual/))
 - Hover ([docs](https://hoverapi.docs.apiary.io/))
 - Hurricane Electric DNS ([docs](https://dns.he.net/))
-- Hetzner ([docs](https://wiki.hetzner.de/index.php/DNS_Zonendatei/en))
+- Hetzner ([docs](https://dns.hetzner.com/api-docs/))
 - Infoblox ([docs](https://docs.infoblox.com/display/ILP/Infoblox+Documentation+Portal))
 - Internet.bs ([docs](https://internetbs.net/ResellerRegistrarDomainNameAPI))
 - INWX ([docs](https://www.inwx.de/en/offer/api))
@@ -85,6 +86,7 @@ The current supported providers are:
 - SoftLayer ([docs](https://sldn.softlayer.com/article/REST#HTTP_Request_Types))
 - Subreg (deprecated, use Gransy)
 - Transip ([docs](https://www.transip.nl/transip/api/))
+- UltraDNS ([docs](https://ultra-portalstatic.ultradns.com/static/docs/REST-API_User_Guide.pdf))
 - Vultr ([docs](https://www.vultr.com/api/))
 - Yandex ([docs](https://tech.yandex.com/domain/doc/reference/dns-add-docpage/))
 - Zeit ([docs](https://zeit.co/api#post-domain-records))
@@ -97,7 +99,6 @@ Potential providers are as follows. If you would like to contribute one, follow 
 - ~~DurableDNS ([docs](https://durabledns.com/wiki/doku.php/ddns))~~ <sub>Can't set TXT records</sub>
 - cyon.ch
 - Dyn ([docs](https://help.dyn.com/dns-api-knowledge-base/)) :dollar: <sub>requires paid account</sub>
-- Dynu
 - EntryDNS ([docs](https://entrydns.net/help)) :dollar: <sub>requires paid account</sub>
 - FreeDNS ([docs](https://freedns.afraid.org/scripts/freedns.clients.php))
 - Host Virtual DNS ([docs](https://github.com/hostvirtual/hostvirtual-python-sdk/blob/master/hostvirtual.py)) :dollar: <sub>requires paid account</sub>

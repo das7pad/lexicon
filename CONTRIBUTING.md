@@ -102,13 +102,13 @@ Then you'll need to populate it with the following template:
 
 ```python
 # Test for one implementation of the interface
-from lexicon.tests.providers.integration_tests import IntegrationTests
+from lexicon.tests.providers.integration_tests import IntegrationTestsV2
 from unittest import TestCase
 
 # Hook into testing framework by inheriting unittest.TestCase and reuse
 # the tests which *each and every* implementation of the interface must
 # pass, by inheritance from integration_tests.IntegrationTests
-class FooProviderTests(TestCase, IntegrationTests):
+class FooProviderTests(TestCase, IntegrationTestsV2):
     """Integration tests for Foo provider"""
 	provider_name = 'foo'
 	domain = 'example.com'
@@ -154,7 +154,7 @@ In default test mode, tests are replayed from existing recordings. In live mode,
 
 To execute the `py.test` suite using the live tests mode, execute py.test with the environment variable `LEXICON_LIVE_TESTS` set to `true` like below:
 
-	LEXICON_LIVE_TESTS=true py.test tests/providers/test_foo.py
+	LEXICON_LIVE_TESTS=true py.test lexicon/tests/providers/test_foo.py
 
 If any of the integration tests fail on your provider, you'll need to delete the recordings that were created,
 make your changes and then try again.
@@ -174,7 +174,7 @@ Finally, push your changes to your Github fork, and open a PR.
 
 Neither of the snippets below should be used unless necessary. They are only included in the interest of documentation.
 
-In your `tests/providers/test_foo.py` file, you can use `@pytest.mark.skip` to skip any individual test that does not apply (and will never pass)
+In your `lexicon/tests/providers/test_foo.py` file, you can use `@pytest.mark.skip` to skip any individual test that does not apply (and will never pass)
 
 ```python
 	@pytest.mark.skip(reason="can not set ttl when creating/updating records")
@@ -182,13 +182,14 @@ In your `tests/providers/test_foo.py` file, you can use `@pytest.mark.skip` to s
 		return
 ```
 
-You can also skip extended test suites by adding the following snipped:
+You can also skip extended test suites by inheriting your provider test class from ``IntegrationTestsV1`` instead of ``IntegrationTestsV2``:
 
 ```python
-    @pytest.fixture(autouse=True)
-    def _skip_suite(self, request):  # pylint: disable=no-self-use
-        if request.node.get_closest_marker('ext_suite_1'):
-            pytest.skip('Skipping extended suite')
+from lexicon.tests.providers.integration_tests import IntegrationTestsV1
+from unittest import TestCase
+
+class FooProviderTests(TestCase, IntegrationTestsV1):
+    """Integration tests for Foo provider"""
 ```
 
 ## CODEOWNERS file
