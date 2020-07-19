@@ -182,12 +182,13 @@ class Provider(BaseProvider):
         existing_records = self._list_record_sets(rtype, name)
         if existing_records:
             existing_record = existing_records[0]
-            if isinstance(existing_records[0]['content'], list):
-                return self._change_record_sets(
-                    'UPSERT', existing_record['type'], existing_record['name'],
-                    existing_record['content'] + [content])
+            if not isinstance(existing_record['content'], list):
+                existing_record['content'] = [existing_record['content']]
+            if content in existing_record['content']:
+                # noop -- the record already exists with the desired content
+                return True
             return self._change_record_sets(
-                'UPSERT', rtype, name, [existing_record['content']] + [content])
+                'UPSERT', rtype, name, existing_record['content'] + [content])
         return self._change_record_sets('CREATE', rtype, name, content)
 
     def _update_record(self, identifier=None, rtype=None, name=None, content=None):
