@@ -142,7 +142,6 @@ class Provider(BaseProvider):
         name = name if name else records_to_update[0]['name']
         content = content if content else records_to_update[0]['content']
 
-        self._delete_record_internal(identifier=identifier)
         self._create_record_internal(rtype=rtype, name=name, content=content)
 
         LOGGER.debug('update_record: %s => %s', identifier,
