@@ -46,6 +46,11 @@ def provider_parser(subparser):
                                                           'to the resource group')
     subparser.add_argument('--resource-group', help='specify the resource group hosting the DNS '
                                                     'zone to edit')
+    subparser.add_argument(
+        '--compose-domain-id',
+        help='compose the domain id from known arguments',
+        default=False,
+    )
 
 
 class Provider(BaseProvider):
@@ -224,6 +229,19 @@ class Provider(BaseProvider):
         result.raise_for_status()
 
         self._access_token = result.json()['access_token']
+
+        if self._get_provider_option('compose_domain_id'):
+            self.domain_id = (
+                "/subscriptions/{subscription_id}"
+                "/resourceGroups/{resource_group}"
+                "/providers/Microsoft.Network"
+                "/dnszones/{domain}".format(
+                    subscription_id=subscription_id,
+                    resource_group=resource_group,
+                    domain=self.domain
+                )
+            )
+            return
 
         url = ('{0}/subscriptions/{1}/resourceGroups/{2}/providers/Microsoft.Network/dnsZones'
                .format(MANAGEMENT_URL, subscription_id, resource_group))
