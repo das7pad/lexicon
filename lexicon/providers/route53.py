@@ -228,15 +228,12 @@ class Provider(BaseProvider):
             matching_records = [record for record in self._list_records()
                                 if identifier == _identifier(record)]
             if not matching_records:
-                raise ValueError('No record found for identifier {0}'.format(identifier))
+                return True
             rtype = matching_records[0]['type']
             name = matching_records[0]['name']
             content = matching_records[0]['content']
 
         existing_records = self._list_record_sets(rtype, name, content)
-        if not existing_records:
-            raise ValueError('No record found for the provided type, name and content')
-
         for existing_record in existing_records:
             if isinstance(existing_record['content'], list) and content is not None:
                 # multiple values in record, just remove one value and only if it actually exist
