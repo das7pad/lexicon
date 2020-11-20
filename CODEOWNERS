@@ -45,6 +45,7 @@ lexicon/providers/hostingde.py      @initit
 lexicon/providers/hover.py          @bkanuka
 lexicon/providers/internetbs.py     @edausq
 lexicon/providers/inwx.py           @lociii
+lexicon/providers/joker.py          @adferrand
 lexicon/providers/linode.py         @trinopoty
 lexicon/providers/linode4.py        @trinopoty
 lexicon/providers/localzone.py      @ags-slc
@@ -54,6 +55,7 @@ lexicon/providers/namecheap.py      @pschmitt @rbelnap
 lexicon/providers/namesilo.py       @analogj
 lexicon/providers/netcup.py         @coldfix
 lexicon/providers/nfsn.py           @tersers
+lexicon/providers/njalla.py         @chapatt
 lexicon/providers/nsone.py          @init-js @trinopoty
 lexicon/providers/onapp.py          @alexzorin
 lexicon/providers/online.py         @kapouer
