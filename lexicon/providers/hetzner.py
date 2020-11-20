@@ -15,6 +15,10 @@ NAMESERVER_DOMAINS = ["ns.hetzner.com"]
 def provider_parser(subparser):
     """Configure a provider parser for Hetzner"""
     subparser.add_argument("--auth-token", help="Specify Hetzner DNS API token")
+    subparser.add_argument(
+        "--domain-id",
+        help="specify zone id (if not set: perform lookup)",
+    )
 
 
 class Provider(BaseProvider):
@@ -34,6 +38,9 @@ class Provider(BaseProvider):
         self.api_endpoint = "https://dns.hetzner.com/api/v1"
 
     def _authenticate(self):
+        self.domain_id = self._get_provider_option('domain_id')
+        if self.domain_id:
+            return
         provider = self._get_zone_by_domain(self.domain)
         self.domain_id = provider["id"]
 
