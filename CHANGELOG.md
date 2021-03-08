@@ -2,6 +2,14 @@
 
 ## master - CURRENT
 
+## 3.5.3 - 02/01/2021
+## Modified
+* Handle large number of hosted zones in `route53` provider
+
+## 3.5.2 - 23/11/2020
+## Modified
+* Fix domains in "lock" state with `joker` provider
+
 ## 3.5.1 - 16/11/2020
 ## Added
 * Add the Joker.com provider
