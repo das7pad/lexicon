@@ -1,0 +1,47 @@
+interactions:
+- request:
+    body: 'null'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '4'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/example.com/records
+  response:
+    body:
+      string: '{"total_count":2, "records":[{"id":"f5836d62-5e3a-40fb-a618-b3d868633c54",
+        "data":"ns0.dom.scw.cloud.", "name":"", "priority":0, "ttl":1800, "type":"NS",
+        "comment":null}, {"id":"639c2716-f72f-471a-acdc-02b5d4001a01", "data":"ns1.dom.scw.cloud.",
+        "name":"", "priority":0, "ttl":1800, "type":"NS", "comment":null}]}'
+    headers:
+      content-length:
+      - '313'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:39 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - ff7779f2-742f-4840-8615-6f590ef01d7f
+    status:
+      code: 200
+      message: OK
+version: 1

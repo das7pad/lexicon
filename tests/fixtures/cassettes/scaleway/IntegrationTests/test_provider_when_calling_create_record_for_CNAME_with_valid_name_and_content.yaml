@@ -1,0 +1,140 @@
+interactions:
+- request:
+    body: 'null'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '4'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/example.com/records
+  response:
+    body:
+      string: '{"total_count":3, "records":[{"id":"f5836d62-5e3a-40fb-a618-b3d868633c54",
+        "data":"ns0.dom.scw.cloud.", "name":"", "priority":0, "ttl":1800, "type":"NS",
+        "comment":null}, {"id":"639c2716-f72f-471a-acdc-02b5d4001a01", "data":"ns1.dom.scw.cloud.",
+        "name":"", "priority":0, "ttl":1800, "type":"NS", "comment":null}, {"id":"65f60dd7-4468-4bc6-836f-020b5efb88f4",
+        "data":"127.0.0.1", "name":"localhost", "priority":0, "ttl":3600, "type":"A",
+        "comment":null}]}'
+    headers:
+      content-length:
+      - '454'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:40 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 16de80d6-3596-47e0-ae23-a33cd39ea3f2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: 'null'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '4'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/example.com/records?page=1
+  response:
+    body:
+      string: '{"total_count":3, "records":[{"id":"f5836d62-5e3a-40fb-a618-b3d868633c54",
+        "data":"ns0.dom.scw.cloud.", "name":"", "priority":0, "ttl":1800, "type":"NS",
+        "comment":null}, {"id":"639c2716-f72f-471a-acdc-02b5d4001a01", "data":"ns1.dom.scw.cloud.",
+        "name":"", "priority":0, "ttl":1800, "type":"NS", "comment":null}, {"id":"65f60dd7-4468-4bc6-836f-020b5efb88f4",
+        "data":"127.0.0.1", "name":"localhost", "priority":0, "ttl":3600, "type":"A",
+        "comment":null}]}'
+    headers:
+      content-length:
+      - '454'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:40 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 8765b033-b968-4e84-ba2c-450bffac40ee
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"changes": [{"add": {"records": [{"name": "docs", "data": "docs.example.com",
+      "type": "CNAME", "ttl": 3600}]}}]}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '113'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: PATCH
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/example.com/records
+  response:
+    body:
+      string: '{"records":[{"id":"73124e73-b66b-4753-9a07-cd0717862f73", "data":"docs.example.com.example.com.",
+        "name":"docs", "priority":0, "ttl":3600, "type":"CNAME", "comment":null}]}'
+    headers:
+      content-length:
+      - '181'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:41 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 76bdaa18-d1a5-459f-90fc-50635e958037
+    status:
+      code: 200
+      message: OK
+version: 1

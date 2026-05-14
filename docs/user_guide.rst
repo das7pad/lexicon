@@ -5,13 +5,16 @@ User guide
 Installation
 ============
 
+Using pip
+---------
+
 .. warning::
 
     It is strongly advised with pip to install Lexicon in a Python virtual environment,
     in order to avoid interference between Python modules preinstalled on your system as
     OS packages and modules installed by pip (see https://docs.python-guide.org/dev/virtualenvs/).
 
-To use lexicon as a CLI application, do the following:
+To use Lexicon as a CLI application, do the following:
 
 .. code-block:: bash
 
@@ -20,7 +23,7 @@ To use lexicon as a CLI application, do the following:
 Some providers (like Route53 and TransIP) require additional dependencies. You can install
 the `provider specific dependencies`_ separately:
 
-.. _provider specific dependencies: https://github.com/AnalogJ/lexicon/blob/master/setup.py#L34-L44
+.. _provider specific dependencies: https://github.com/dns-lexicon/dns-lexicon/blob/main/setup.py#L34-L44
 
 .. code-block:: bash
 
@@ -36,18 +39,31 @@ You can also install the latest version from the repository directly.
 
 .. code-block:: bash
 
-    $ pip install git+https://github.com/AnalogJ/lexicon.git
+    $ pip install git+https://github.com/dns-lexicon/dns-lexicon.git
 
 and with Route 53 provider dependencies:
 
 .. code-block:: bash
 
-    $ pip install git+https://github.com/AnalogJ/lexicon.git#egg=dns-lexicon[route53]
+    $ pip install git+https://github.com/dns-lexicon/dns-lexicon.git#egg=dns-lexicon[route53]
 
-.. note::
+Using Docker
+------------
 
-    As an alternative you can also install Lexicon using the OS packages available for major
-    Linux distributions (see `lexicon` or `dns-lexicon` package in https://pkgs.org/download/lexicon).
+Lexicon is prepackaged as a Docker image available in the Github Container Registry. The name of the image is ``ghcr.io/dns-lexicon/dns-lexicon``.
+
+You can either use the latest version available, or pin to a specific version (eg. ``ghcr.io/dns-lexicon/dns-lexicon:3.20.1`` to use version ``3.20.1``).
+
+Lexicon CLI flags can be passed directly to the Docker image to execute Lexicon:
+
+.. code-block:: bash
+
+    $ docker run --rm ghcr.io/dns-lexicon/dns-lexicon --help
+
+Using your OS package manager
+-----------------------------
+
+Lexicon is available in various Linux distributions. Please search for `lexicon` or `dns-lexicon` package in https://pkgs.org.
 
 Usage
 =====
@@ -55,74 +71,27 @@ Usage
 .. code-block:: bash
 
     $ lexicon -h
-      usage: lexicon [-h] [--version] [--delegated DELEGATED]
-                     {cloudflare,cloudxns,digitalocean,dnsimple,dnsmadeeasy,dnspark,dnspod,easydns,luadns,namesilo,nsone,pointhq,rage4,route53,vultr,yandex,zonomi}
-                     ...
+    usage: lexicon [-h] [--version] [--delegated DELEGATED] [--config-dir CONFIG_DIR] [--resolve-zone-name]
+                  {aliyun,...,zonomi}
+                  ...
 
-      Create, Update, Delete, List DNS entries
+    Create, Update, Delete, List DNS entries
 
-      positional arguments:
-        {cloudflare,cloudxns,digitalocean,dnsimple,dnsmadeeasy,dnspark,dnspod,easydns,luadns,namesilo,nsone,pointhq,rage4,route53,vultr,yandex,zonomi}
-                              specify the DNS provider to use
-          cloudflare          cloudflare provider
-          cloudxns            cloudxns provider
-          digitalocean        digitalocean provider
+    positional arguments:
+      {aliyun,...,zonomi}
+                            specify the DNS provider to use
+        aliyun              aliyun provider
         ...
-          rage4               rage4 provider
-          route53             route53 provider
-          vultr               vultr provider
-          yandex              yandex provider
-          zonomi              zonomi provider
+        zonomi              zonomi provider
 
-      optional arguments:
-        -h, --help            show this help message and exit
-        --version             show the current version of lexicon
-        --delegated DELEGATED
-                              specify the delegated domain
-
-
-      $ lexicon cloudflare -h
-      usage: lexicon cloudflare [-h] [--name NAME] [--content CONTENT] [--ttl TTL]
-                                [--priority PRIORITY] [--identifier IDENTIFIER]
-                                [--auth-username AUTH_USERNAME]
-                                [--auth-token AUTH_TOKEN]
-                                {create,list,update,delete} domain
-                                {A,AAAA,CNAME,MX,NS,SPF,SOA,TXT,SRV,LOC}
-
-      positional arguments:
-        {create,list,update,delete}
-                              specify the action to take
-        domain                specify the domain, supports subdomains as well
-        {A,AAAA,CNAME,MX,NS,SPF,SOA,TXT,SRV,LOC}
-                              specify the entry type
-
-      optional arguments:
-        -h, --help            show this help message and exit
-        --name NAME           specify the record name
-        --content CONTENT     specify the record content
-        --ttl TTL             specify the record time-to-live
-        --priority PRIORITY   specify the record priority
-        --identifier IDENTIFIER
-                              specify the record for update or delete actions
-        --auth-username AUTH_USERNAME
-                              specify email address used to authenticate
-        --auth-token AUTH_TOKEN
-                              specify token used authenticate
-
-                              specify the entry type
-
-      optional arguments:
-        -h, --help            show this help message and exit
-        --name NAME           specify the record name
-        --content CONTENT     specify the record content
-        --ttl TTL             specify the record time-to-live
-        --priority PRIORITY   specify the record priority
-        --identifier IDENTIFIER
-                              specify the record for update or delete actions
-        --auth-username AUTH_USERNAME
-                              specify email address used to authenticate
-        --auth-token AUTH_TOKEN
-                              specify token used authenticate
+    optional arguments:
+      -h, --help            show this help message and exit
+      --version             show the current version of lexicon
+      --delegated DELEGATED
+                            specify the delegated domain (may not needed if --resolve-zone-name is set)
+      --config-dir CONFIG_DIR
+                            specify the directory where to search lexicon.yml and lexicon_[provider].yml configuration files (default: current directory).
+      --resolve-zone-name   trigger an active resolution of the zone name for the given domain using DNS queries
 
 Using the lexicon CLI is pretty simple:
 
@@ -168,38 +137,83 @@ variables. Every DNS service and auth flag maps to an environmental variable as 
 So instead of specifying ``--auth-username`` and ``--auth-token`` flags when calling ``lexicon cloudflare ...``,
 you could instead set the ``LEXICON_CLOUDFLARE_USERNAME`` and ``LEXICON_CLOUDFLARE_TOKEN`` environmental variables.
 
-If you've got a subdomain delegation configured and need records configured within that
-(eg, you're trying to set ``test.foo.example.com`` where ``foo.example.com`` is configured as a separate zone),
-set ``LEXICON_DELEGATED`` to the delegated domain.
+Injection of Lexicon general options also works with environment variables, using the ``LEXICON_`` prefix: for 
+instance ``LEXICON_DELEGATED`` can be used to setup the ``--delegated`` option (see next paragraph for the purpose
+of this option).
 
 .. code-block:: bash
 
     LEXICON_DELEGATED=foo.example.com
 
-TLD cache
----------
+Resolution of the zone name
+---------------------------
 
-The tldextract_ library is used by Lexicon to find the actual domain name from the provided FQDN
-(eg. ``domain.net`` is the actual domain in ``www.domain.net``). Lexicon stores ``tldextract`` cache
-by default in ``~/.lexicon_tld_set`` where ``~`` is the current user's home directory. You can change
-this path using the ``LEXICON_TLDEXTRACT_CACHE`` environment variable.
+Given the provided domain, Lexicon must determine what is the actual zone name that needs to be queried.
+
+If the decision is "easy" for second-level domains (like ``example.com``), it is not the case for higher level
+domains. For instance ``example.com`` DNS zone could declare a delegation of subdomain ``sub.example.com`` to
+another DNS zone. In this case, a request done to ``sub.example.com`` must correctly that the zone name is
+``sub.example.com`` and not ``example.com``.
+
+Lexicon provides two ways to deal with this situation.
+
+TLDextract & ``--delegate``
+'''''''''''''''''''''''''''
+
+By default the tldextract_ library is used by Lexicon to guess the actual zone name from well known top-level
+domains (aka TLDs). This works well for second-level domains, like guessing that zone name for ``www.domain.net``
+is ``domain.net``.
+
+Lexicon stores ``tldextract`` cache by default in ``~/.lexicon_tld_set`` where ``~`` is the current user's home
+directory. You can change this path using the ``TLDEXTRACT_CACHE_PATH`` environment variable.
 
 For instance, to store ``tldextract`` cache in ``/my/path/to/tld_cache``, you can invoke Lexicon
 like this from a Linux shell:
 
 .. code-block:: bash
 
-    LEXICON_TLDEXTRACT_CACHE=/my/path/to/tld_cache lexicon myprovider create www.example.net TXT ...
+    TLDEXTRACT_CACHE_PATH=/my/path/to/tld_cache lexicon myprovider create www.example.net TXT ...
 
 .. _tldextract: https://pypi.org/project/tldextract/
+
+For higher-level domains, like ``sub.domain.net`` defined to a specific DNS zone, Lexicon would improperly guess that
+the zone name is ``domain.net``. To instruct Lexicon here, please use the ``--delegated`` flag with the actual zone name.
+
+For instance:
+
+.. code-block:: bash
+
+    # Create the TXT entry "bar" on FQDN "foo.sub.domain.net" in DNS zone of domain "sub.domain.net"
+    lexicon --delegated=sub.domain.net cloudflare create sub.domain.net TXT --name=foo --content=bar
+
+Use of ``--resolve-zone-name``
+''''''''''''''''''''''''''''''
+
+A more modern approach introduced with Lexicon 3.17.0 is to leverage ``dnspython`` capacities to lookup on the DNS
+servers what is the actual zone name of a given domain. In this case ``tldextract`` is not used.
+
+In the example given to the previous section, Lexicon will then be able to directly guess that the zone name is
+``sub.domain.net`` and not ``domain.net``.
+
+This option is disabled by default. To activate it, you can pass the flag ``--resolve-zone-name`` to Lexicon.
+
+For instance:
+
+.. code-block:: bash
+
+    # Create the TXT entry "bar" on FQDN "foo.sub.domain.net" in DNS zone of domain "sub.domain.net"
+    lexicon --resolve-zone-name cloudflare create sub.domain.net TXT --name=foo --content=bar
+
+In most cases, the ``--delegated`` flag is not needed. However you can still use it if needed to override the
+resolved zone name.
 
 Integration
 ===========
 
 Lexicon can be integrated with various tools and process to help handling DNS records.
 
-Let'sEncrypt instructions
--------------------------
+Let's Encrypt instructions
+--------------------------
 
 Lexicon has an example `dehydrated hook file`_ that you can use for any supported provider.
 All you need to do is set the PROVIDER env variable.

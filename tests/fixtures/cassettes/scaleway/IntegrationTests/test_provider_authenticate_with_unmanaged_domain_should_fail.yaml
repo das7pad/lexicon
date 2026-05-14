@@ -1,0 +1,44 @@
+interactions:
+- request:
+    body: 'null'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '4'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/thisisadomainidonotown.com/records
+  response:
+    body:
+      string: '{"message":"domain not found"}'
+    headers:
+      content-length:
+      - '30'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:39 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - efc4c6f9-aa2a-423c-a0a1-7aa55aed790f
+    status:
+      code: 403
+      message: Forbidden
+version: 1

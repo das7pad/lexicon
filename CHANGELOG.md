@@ -2,37 +2,432 @@
 
 ## master - CURRENT
 
+## 3.25.2 - 10/05/2026
+### Added
+* The `googleclouddns` provider now works on public zones only by default
+
+## 3.25.1 - 27/04/2026
+### Modified
+* Fix creation of records using `wedos` provider
+* Use BASIC authentication for `easydns` provider instead of request parameters
+* The `googleclouddns` provider now supports API pagination to fetch the rrsets
+
+## 3.25.0 - 27/04/2026
+### Added
+* Add the `httpnet` provider (#77)
+
+### Modified
+* The `azure` provider now supports the Azure API pagination (#74)
+* Fix `inwx` records handling (#79)
+
+## 3.24.0 - 27/04/2026
+### Added
+* The `hetzner` provider supports automatically the new Hetzner API (#73)
+### Modified
+* Allow preservation of TTL in `desec` provider (#66)
+* Fix req with empty content in `desec` provider (#67)
+* Support connection to AF_UNIX sockets for `pdns` APIs (#53)
+* Fix TXT challenge records not being deleted for `ovh` provider (#65)
+
+## 3.23.2 - 14/11/2025
+### Added
+* Support subdomains in `dynu` providers (#34)
+
+## 3.23.1 - 14/11/2025
+### Modified
+* Fix pagination in `scaleway` provider (#64)
+* Fix tests in `godaddy` provider
+
+## 3.23.0 - 11/11/2025
+### Added
+* Add `desec` provider (#55)
+
+### Removed
+* Replace the old `linode` provider with `linode4`. `linode4` provider name 
+  is still usable for retro-compatibility purpose.
+
+## 3.22.0 - 11/11/2025
+### Added
+* Add support of Python 3.14
+* Add relevant URLs in the pyproject.toml for publication in PyPI
+
+### Modified
+* Make domain comparison case insensitive in DYNU provider to cope with zones with uppercase characters
+* Properly close sockets during integration tests
+
+### Removed
+* Drop support of Python 3.9
+
+## 3.21.1 - 28/04/2025
+### Modified
+* Make provider `dynu` able to work not only with the root domain of a zone (#31)
+* Remove the usage of a deprecated function of beautifulsoup (#29)
+
+## 3.21.0 - 08/04/2025
+### Added
+* Add `devnomads` provider (#19)
+* Add `scaleway` provider (#21)
+
+### Modified
+* In `ionos` provider, authentication is not required
+  when using automatic detection of registrar (#22)
+* In `hover` provider, prevent to send empty bodies in requests
+  that would be refused by the API (#26)
+
+### Removed
+* Remove `webgo` provider (#20)
+
+## 3.20.1 - 19/12/2024
+### Modified
+* Setup Docker entrypoint to run Lexicon by default
+
+## 3.20.0 - 12/12/2024
+### Modified
+* Fix Docker build & migrate image to Github Container registry
+
+## 3.19.0 - 06/12/2024
+### Added
+* Add `regfish` provider (analogj/lexicon#2102)
+* Add `ionos` provider (analogj/lexicon#2127)
+* Add support of Python 3.13
+
+### Modified 
+* Migrate build tooling from poetry to uv
+* Provider `porkbun` now use the new API exposed by the DNS provider (analogj/lexicon#2069)
+
+### Removed
+* Drop support of Python 3.8
+
+## 3.18.0 - 22/08/2024
+### Added
+* Add `timeweb` provider (analogj/lexicon#1850)
+* Add `qcloud` provider (analogj/lexicon#1824)
+
+### Modified
+* Update cloudflare documentation regarding the zoneID (analogj/lexicon#1783)
+* Add support of personal access tokens (PATs) in `gandi` provider (analogj/lexicon#1987)
+* Prevent invalid TTL values and proper behavior with subdomains in `godaddy` provider (analogj/lexicon#1834)
+
+## 3.17.0 - 06/11/2023
+### Added
+* New method to determine the actual zone name for a given FQDN. Historically it was an extraction
+  of the second-level domain given well-known TLDs (eg., `domain.net` for `www.domain.net`) using
+  `tldextract`, and usage of `--delegated` option to enforce a specific zone name that is useful for
+  third-level domains hosted on a specific zone (eg., sub-zone `sub.domain.net` delegated from zone
+  `domain.net`).
+  It is now possible to use the `--resolve-zone-name` flag on Lexicon client to trigger an actual
+  resolution of the zone name from a given FQDN using live DNS servers by leveraging `dnspython`
+  utilities. Most of the time this makes `--delegated` useless, since Lexicon will be able to guess
+  the correct zone name.
+
+## 3.16.1 - 18/10/2023
+### Added
+* Add support to Python 3.12.
+
+### Modified
+* Support older versions of requests (<2.27.0) in `ovh` provider.
+
+## 3.16.0 - 14/10/2023
+### Removed
+* Drop support for Python 3.7
+
+## 3.15.1 - 13/10/2023
+### Modified
+* Protect `ovh` provider against invalid response bodies
+  that are returned sometimes by OVH APIs.
+* Fix filtering by record content in `godaddy` provider.
+
+## 3.15.0 - 30/09/2023
+### Added
+* Add `pyotp` Python dependency in Lexicon to help implementing OTP (one-time password)
+  on providers whose API supports this kind of authentication.
+* Add OTP support on `hover` provider, with a new flag named `--auth-totp-secret`.
+* Add type marker `py.typed` to inform types checkers about availability of type
+  annotations in Lexicon codebase.
+
+### Modified
+* Fix and modernize ReadTheDoc documentation build.
+* Better error management and resource cleanup when `Client` is used as a context manager.
+
+### Removed
+* Stop using `cryptography` in providers where only hashing is needed.
+
+## 3.14.1 - 13/08/2023
+### Added
+* Add back declared support to Python 3.7 for few cycles
+
+## 3.14.0 - 13/08/2023
+### Added
+* New way to invoke Lexicon as a library: ``lexicon.client.Client`` becomes a context manager.
+  When invoked with the `with` keyword, it will provide an operation object that embeds the
+  target provider fully authenticated (``authenticate`` method called on the Provider).
+  This operation object gives access to four methods: ``create_record``, ``update_record``,
+  ``delete_record`` and ``list_records``. These methods can be invoked instead of the old
+  ``execute`` method to execute a specific action on the DNS zone. In this case, ``type``,
+  ``name``, ``content`` fields do not need to be set in the config anymore, since they are
+  passed directly as arguments to the new methods. Upon context manager closing, the ``cleanup``
+  method defined in the Provider is ensured to be called. See the README file of the project
+  for an example of how to use this new approach.
+* Python warnings are emitted from the code to alert about the deprecations listed below.
+
+### Modified
+* Former ``NAMESERVER_DOMAIN`` variable and ``provider_parser`` function that had to be defined
+  in each provider module are respectively migrated to ``get_nameservers``
+  and ``configure_parser`` static methods in each Provider class. They are defined as abstract
+  in the interface and must be implemented in the concrete classes.
+* Former private methods ``_create_record``, ``_modify_record``, ``_delete_record``
+  and ``_list_records`` are migrated to their public counterpart ``create_record``,
+  ``modify_record``, ``delete_record`` and ``list_records`` in each Provider class. These are
+  the new abstract methods for each action that need to be implemented.
+* Method ``lexicon.client.Client.execute`` is deprecated and will be removed in Lexicon 4.
+* Package ``lexicon.providers``, containing the actual provider implementations, is migrated to
+  ``lexicon._private.providers``. The provider implementations are not supposed to be used
+  directly, please use ``lexicon.client.Client`` instead with the new methods described above.
+  Package ``lexicon.providers`` stubs to ``lexicon._private.providers`` to ease the migration
+  path, but it is deprecated and will be removed in Lexicon 4.
+* Module ``lexicon.providers.base``, that contains the Provider interface to implement, is
+  migrated to module ``lexicon.interfaces``. Module ``lexicon.providers.base`` stubs
+  to ``lexicon.interfaces`` to ease the migration path, but it is deprecated and will be removed
+  in Lexicon 4.
+* Modules ``lexicon.cli``, ``lexicon.parser`` and ``lexicon.discovery`` are migrated to the
+  private package ``lexicon._private`` as they are not part of the public API. Old modules
+  stubs to the new modules in the private package ``lexicon._private`` to ease the migration path,
+  but it is deprecated and will be removed in Lexicon 4.
+* Update documentation, in particular the developer guide, to take into account the new
+  architecture of the code to implement a new Provider.
+* Functional codebase in ``/lexicon`` folder is moved in ``/src/lexicon`` folder to comply with
+  modern Python project layouts. Tests are migrated to ``/tests`` folder.
+
+### Removed
+* Drop support for Python 3.7
+
+## 3.13.0 - 07/08/2023
+### Added
+* Add `wedos` provider (analogj/lexicon#1675)
+
+### Modified
+* Proper handling off authentication errors on `easydns` provider (analogj/lexicon#1674)
+* Allow management of pending (non-active) domains in `cloudflare` provider (analogj/lexicon#1659)
+
+## 3.12.0 - 11/06/2023
+### Added
+* Add `duckdns` provider (experimental support) (analogj/lexicon#1533)
+* Add `dnsservices` provider (analogj/lexicon#1603)
+* Add `flexibleengine` provider (analogj/lexicon#1600)
+* Official support for Python 3.11
+
+### Modified
+* Upgrade API version used for `azure` provider (analogj/lexicon#1606)
+* Various fixes for documentation (analogj/lexicon#1488 analogj/lexicon#1458 analogj/lexicon#1601 analogj/lexicon#1605)
+* Fix check for extra dependencies (analogj/lexicon#1568)
+
+## 3.11.7 - 26/10/2022
+### Modified
+* Fix `easyname` provider (update action) (analogj/lexicon#1442)
+
+## 3.11.6 - 11/10/2022
+### Modified
+* Fix `hetzner` provider with large list of entries (analogj/lexicon#1389)
+
+## 3.11.5 - 10/10/2022
+### Modified
+* Fix upsertRecordSet in `yandex` provider (analogj/lexicon#1423)
+
+## 3.11.4 - 11/08/2022
+### Modified
+* Better management of domain zone id in `yandex` provider (analogj/lexicon#1338)
+* Fix create record action on `glesys` provider (analogj/lexicon#1356)
+* Fix create multiple TXT records for the same name in `azure` provider (analogj/lexicon#1359)
+
+## 3.11.3 - 21/06/2022
+### Added
+* Add `porkbun` provider (analogj/lexicon#1283)
+
+## 3.11.2 - 16/05/2022
+### Changed
+* Add support of record update without an identifier in `yandex` provider (analogj/lexicon#1253)
+
+## 3.11.1 - 15/05/2022
+### Modified
+* Improve the Oracle Cloud DNS (`oci`) provider on the authentication mechanism (analogj/lexicon#1251)
+* Add API documentation to Oracle Cloud DNS (analogj/lexicon#1247)
+
+## 3.11.0 - 06/05/2022
+### Added
+* Add `namecom` provider (analogj/lexicon#1212)
+
+### Modified
+* Fix TLD with two parts for `namecheap` provider (analogj/lexicon#1237)
+* Fix `entity__name` parsing in `easyname` provider (analogj/lexicon#1230)
+
+## 3.10.0 - 01/05/2022
+### Added
+* Add `--zone-id` CLI flag for `route53` provider
+* Add `yandexcloud` provider dedicated to Yandex Cloud solution (analogj/lexicon#1213)
+
+### Modified
+* Improve documentation with auto-generation
+* Clarify that `yandex` provider supports Yandex PDD only (analogj/lexicon#1211)
+* Use UUIDs in `aliyun` provider to avoid nonce collisions
+
+## 3.9.5 - 18/04/2022
+### Added
+* Add `misaka` provider (analogj/lexicon#1205 analogj/lexicon#556)
+
+### Modified
+* Fix `yandex` provider for MX/SRV records (analogj/lexicon#1201)
+* Fix `joker` provider by using POST requests instead of GET (analogj/lexicon#1201)
+
+## 3.9.4 - 14/02/2022
+### Added
+* Add `webgo` provider (analogj/lexicon#1102)
+
+### Modified
+* Extend possible record types list for `dreamhost` provider (analogj/lexicon#1110)
+
+## 3.9.3 - 27/01/2022
+### Modified
+* Fix compatibility with requests>=2 in `transip` provider
+
+## 3.9.2 - 17/01/2022
+### Modified
+* Fix configuration reference
+
+## 3.9.1 - 17/01/2022
+### Modified
+* Reimplement the `transip` provider using the new REST v6 API
+
+## 3.9.0 - 06/01/2022
+## Deleted
+* Drop Python 3.6 support
+
+## 3.8.5 - 29/12/2021
+### Modified
+* Complete redesign of the update and delete actions in GoDaddy provider to fix several issues
+
+## 3.8.4 - 28/12/2021
+### Added
+* Add the Value Domain provider (analogj/lexicon#1018)
+
+### Modified
+* Fix issue on the GoDaddy provider for update actions
+
+## 3.8.3 - 12/11/2021
+### Modified
+* Fix `plesk` provider (analogj/lexicon#1004)
+* Update nameservers in `namecheap` provider (analogj/lexicon#911)
+
+## 3.8.2 - 03/11/2021
+### Modified
+* Fix `dreamhost` provider since deprecated API endpoints are removed (analogj/lexicon#998)
+
+## 3.8.1 - 15/10/2021
+### Modified
+* Fix `rackspace` provider by not sending a body request for `GET` requests (analogj/lexicon#989)
+
+## 3.8.0 - 04/10/2021
+### Modified
+* `transip` provider is deprecated and not maintained anymore, it will be replaced
+   soon by a new `transip` provider build on top of the TransIP v6 REST API
+
+## Deleted
+* `transip` provider is not part of the `full` dns-lexicon extra, you need to install
+  explicitly the `transip` extra instead
+
+## 3.7.1 - 04/10/2021
+### Modified
+* Allow to use newer versions of `cryptography`
+* Fix doc about unit tests
+
+## 3.7.0 - 09/08/2021
+### Added
+* Add the Vercel provider (formerly known as Zeit)
+* Add the Oracle Cloud Infrastructure (OCI) DNS provider (analogj/lexicon#860)
+
+### Modified
+* Keep old Zeit provider for compatibility purpose with deprecation notices
+* Support multiple domain statuses for Joker provider (analogj/lexicon#880)
+
+## 3.6.1 - 27/06/2021
+### Modified
+* Support deprecated `method_whitelist` parameter in urllib3.util.retry.Retry for urllib3<1.26
+* Fix support of registered domains for INWX provider (analogj/lexicon#828)
+* Update `mypy` and use external types modules
+
+## 3.6.0 - 02/05/2021
+### Added
+* Vendor `pynamecheap` project for `namecheap` provider
+* Annotate public API with types
+* Check mypy types during CI
+* Add the RFC2136 DynDNS provider (named `ddns`)
+* Use Lexicon specific exceptions in code: `AuthenticationError` for authentication problems
+
+### Modified
+* Implement the base provider as an ABC class
+* Improve `plesk` provider for wildcard domains or subdomains
+* Use `poetry-core` instead of `poetry` for the builds
+* Switch to GitHub-native Dependabot
+
+### Deleted
+* Remove dependency of `plesk` provider to `xmltodict`
+* Remove some Python 2 specific code
+* Remove deprecated `type` parameter in providers public methods
+
+## 3.5.6 - 28/03/2021
+### Modified
+* Migrate Vultr provider to the V2 API (analogj/lexicon#770)
+
+## 3.5.5 - 20/03/2021
+### Added
+* Add the Mythic Beasts provider (analogj/lexicon#739)
+* Add the Infomaniak provider (analogj/lexicon#685 analogj/lexicon#762)
+
+### Changed
+* Improve dev tooling (analogj/lexicon#761)
+
+## 3.5.4 - 17/03/2021
+### Changed
+* Support both `tldextract` 2.x and 3.x
+* Upgrade third-party dependencies
+* Validate PowerDNS provider parameters (analogj/lexicon#755)
+* Support dnspython>=2.1 for `localzone` provider (analogj/lexicon#760)
+* Update Mythic Beasts documentation (analogj/lexicon#693)
+* Fix documentation build and publication
+
+### Deleted
+* Remove `mock` and `nose` dependencies (analogj/lexicon#706)
+
 ## 3.5.3 - 02/01/2021
-## Modified
+### Modified
 * Handle large number of hosted zones in `route53` provider
 
 ## 3.5.2 - 23/11/2020
-## Modified
+### Modified
 * Fix domains in "lock" state with `joker` provider
 
 ## 3.5.1 - 16/11/2020
-## Added
+### Added
 * Add the Joker.com provider
 * Add environment variable `TLDEXTRACT_CACHE_PATH` to configure a tldextract cache custom location for Lexicon
 
-## Modified
+### Modified
 * Old environment variable `TLDEXTRACT_CACHE_FILE` is deprecated and will be removed in a future release
 
 ## 3.5.0 - 10/11/2020
-## Modified
+### Modified
 * Avoid installation problems with setuptools==50
 * Migrating codebase to Python 3.6+ specific features (Lexicon will explicitly break on older versions now)
 * Fix Easyname provider to work with their new website
 
 ## 3.4.5 - 02/11/2020
 ### Added
-* Add pagination support to Google Cloud DNS provider (#577)
+* Add pagination support to Google Cloud DNS provider (analogj/lexicon#577)
 * Add official support to Python 3.9
-* Add SSHFP record support to CloudFlare provider (library only) (#612)
+* Add SSHFP record support to CloudFlare provider (library only) (analogj/lexicon#612)
 
 ### Modified
-* Fix create/update operations when CAA records are presents in GoDaddy provider (#545)
-* Fix Hover provider with new authentication URL (#618)
+* Fix create/update operations when CAA records are presents in GoDaddy provider (analogj/lexicon#545)
+* Fix Hover provider with new authentication URL (analogj/lexicon#618)
 
 ## 3.4.4 - 25/10/2020
 ### Modified

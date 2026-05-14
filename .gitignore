@@ -47,7 +47,7 @@ coverage.xml
 *,cover
 .pytest_cache
 db.example.com
-junit
+reports
 
 # Translations
 *.mo
@@ -65,7 +65,6 @@ target/
 # Intellij
 .idea
 container_settings.json
-src/
 
 # VSCode
 .vscode

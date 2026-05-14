@@ -1,0 +1,374 @@
+interactions:
+- request:
+    body: 'null'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '4'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/example.com/records
+  response:
+    body:
+      string: '{"total_count":15, "records":[{"id":"f5836d62-5e3a-40fb-a618-b3d868633c54",
+        "data":"ns0.dom.scw.cloud.", "name":"", "priority":0, "ttl":1800, "type":"NS",
+        "comment":null}, {"id":"639c2716-f72f-471a-acdc-02b5d4001a01", "data":"ns1.dom.scw.cloud.",
+        "name":"", "priority":0, "ttl":1800, "type":"NS", "comment":null}, {"id":"300b8351-30ac-4807-9b6a-0284492c5c56",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.fqdn", "priority":0,
+        "ttl":3600, "type":"TXT", "comment":null}, {"id":"0917f4b3-be77-46ed-90d6-1708067bd65d",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.full.example.com",
+        "priority":0, "ttl":3600, "type":"TXT", "comment":null}, {"id":"dd6537d9-be1f-4766-911a-c91dd99bfbc2",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.test", "priority":0,
+        "ttl":3600, "type":"TXT", "comment":null}, {"id":"73124e73-b66b-4753-9a07-cd0717862f73",
+        "data":"docs.example.com.example.com.", "name":"docs", "priority":0,
+        "ttl":3600, "type":"CNAME", "comment":null}, {"id":"65f60dd7-4468-4bc6-836f-020b5efb88f4",
+        "data":"127.0.0.1", "name":"localhost", "priority":0, "ttl":3600, "type":"A",
+        "comment":null}, {"id":"085d0296-1f9d-4737-89cb-548d44150af8", "data":"\"updated\"",
+        "name":"orig.nameonly.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"b61592ac-932f-432a-a749-905e12da9ce2", "data":"\"challengetoken\"",
+        "name":"random.fqdntest", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"53809802-8459-40be-ac74-349cb0249c51", "data":"\"challengetoken\"",
+        "name":"random.fulltest.example.com", "priority":0, "ttl":3600, "type":"TXT",
+        "comment":null}, {"id":"4ab87377-72f6-4db0-9251-7143e6f41715", "data":"\"challengetoken\"",
+        "name":"random.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"ef6d344a-fb90-4178-8f6c-3d5de52fdf6b", "data":"\"ttlshouldbe3600\"",
+        "name":"ttl.fqdn", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"b8575a0c-3cbf-49e2-ada3-dfac97ded926", "data":"\"challengetoken\"",
+        "name":"updated.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"541ae116-7cb0-4cf1-b2f2-c51f1eb0ce45", "data":"\"challengetoken\"",
+        "name":"updated.testfqdn", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"42e42e49-e529-4222-accf-4347f53fd268", "data":"\"challengetoken\"",
+        "name":"updated.testfull.example.com", "priority":0, "ttl":3600,
+        "type":"TXT", "comment":null}]}'
+    headers:
+      content-length:
+      - '2425'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:53 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 1509e3af-68d4-4bf6-9927-4bb6d86fd555
+    status:
+      code: 200
+      message: OK
+- request:
+    body: 'null'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '4'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/example.com/records?page=1
+  response:
+    body:
+      string: '{"total_count":15, "records":[{"id":"f5836d62-5e3a-40fb-a618-b3d868633c54",
+        "data":"ns0.dom.scw.cloud.", "name":"", "priority":0, "ttl":1800, "type":"NS",
+        "comment":null}, {"id":"639c2716-f72f-471a-acdc-02b5d4001a01", "data":"ns1.dom.scw.cloud.",
+        "name":"", "priority":0, "ttl":1800, "type":"NS", "comment":null}, {"id":"300b8351-30ac-4807-9b6a-0284492c5c56",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.fqdn", "priority":0,
+        "ttl":3600, "type":"TXT", "comment":null}, {"id":"0917f4b3-be77-46ed-90d6-1708067bd65d",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.full.example.com",
+        "priority":0, "ttl":3600, "type":"TXT", "comment":null}, {"id":"dd6537d9-be1f-4766-911a-c91dd99bfbc2",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.test", "priority":0,
+        "ttl":3600, "type":"TXT", "comment":null}, {"id":"73124e73-b66b-4753-9a07-cd0717862f73",
+        "data":"docs.example.com.example.com.", "name":"docs", "priority":0,
+        "ttl":3600, "type":"CNAME", "comment":null}, {"id":"65f60dd7-4468-4bc6-836f-020b5efb88f4",
+        "data":"127.0.0.1", "name":"localhost", "priority":0, "ttl":3600, "type":"A",
+        "comment":null}, {"id":"085d0296-1f9d-4737-89cb-548d44150af8", "data":"\"updated\"",
+        "name":"orig.nameonly.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"b61592ac-932f-432a-a749-905e12da9ce2", "data":"\"challengetoken\"",
+        "name":"random.fqdntest", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"53809802-8459-40be-ac74-349cb0249c51", "data":"\"challengetoken\"",
+        "name":"random.fulltest.example.com", "priority":0, "ttl":3600, "type":"TXT",
+        "comment":null}, {"id":"4ab87377-72f6-4db0-9251-7143e6f41715", "data":"\"challengetoken\"",
+        "name":"random.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"ef6d344a-fb90-4178-8f6c-3d5de52fdf6b", "data":"\"ttlshouldbe3600\"",
+        "name":"ttl.fqdn", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"b8575a0c-3cbf-49e2-ada3-dfac97ded926", "data":"\"challengetoken\"",
+        "name":"updated.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"541ae116-7cb0-4cf1-b2f2-c51f1eb0ce45", "data":"\"challengetoken\"",
+        "name":"updated.testfqdn", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"42e42e49-e529-4222-accf-4347f53fd268", "data":"\"challengetoken\"",
+        "name":"updated.testfull.example.com", "priority":0, "ttl":3600,
+        "type":"TXT", "comment":null}]}'
+    headers:
+      content-length:
+      - '2425'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:54 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 26bba6aa-c5fb-439b-855a-bc885db73a22
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"changes": [{"add": {"records": [{"name": "delete.testfqdn.example.com.",
+      "data": "challengetoken", "type": "TXT", "ttl": 3600}]}}]}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '142'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: PATCH
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/example.com/records
+  response:
+    body:
+      string: '{"records":[{"id":"ba499026-6b01-476a-8871-3272a5ac02cf", "data":"\"challengetoken\"",
+        "name":"delete.testfqdn", "priority":0, "ttl":3600, "type":"TXT", "comment":null}]}'
+    headers:
+      content-length:
+      - '170'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:54 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - f6632f6f-e9d2-456a-98ba-1706f1c3c467
+    status:
+      code: 200
+      message: OK
+- request:
+    body: 'null'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '4'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/example.com/records?page=1
+  response:
+    body:
+      string: '{"total_count":16, "records":[{"id":"f5836d62-5e3a-40fb-a618-b3d868633c54",
+        "data":"ns0.dom.scw.cloud.", "name":"", "priority":0, "ttl":1800, "type":"NS",
+        "comment":null}, {"id":"639c2716-f72f-471a-acdc-02b5d4001a01", "data":"ns1.dom.scw.cloud.",
+        "name":"", "priority":0, "ttl":1800, "type":"NS", "comment":null}, {"id":"300b8351-30ac-4807-9b6a-0284492c5c56",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.fqdn", "priority":0,
+        "ttl":3600, "type":"TXT", "comment":null}, {"id":"0917f4b3-be77-46ed-90d6-1708067bd65d",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.full.example.com",
+        "priority":0, "ttl":3600, "type":"TXT", "comment":null}, {"id":"dd6537d9-be1f-4766-911a-c91dd99bfbc2",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.test", "priority":0,
+        "ttl":3600, "type":"TXT", "comment":null}, {"id":"ba499026-6b01-476a-8871-3272a5ac02cf",
+        "data":"\"challengetoken\"", "name":"delete.testfqdn", "priority":0, "ttl":3600,
+        "type":"TXT", "comment":null}, {"id":"73124e73-b66b-4753-9a07-cd0717862f73",
+        "data":"docs.example.com.example.com.", "name":"docs", "priority":0,
+        "ttl":3600, "type":"CNAME", "comment":null}, {"id":"65f60dd7-4468-4bc6-836f-020b5efb88f4",
+        "data":"127.0.0.1", "name":"localhost", "priority":0, "ttl":3600, "type":"A",
+        "comment":null}, {"id":"085d0296-1f9d-4737-89cb-548d44150af8", "data":"\"updated\"",
+        "name":"orig.nameonly.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"b61592ac-932f-432a-a749-905e12da9ce2", "data":"\"challengetoken\"",
+        "name":"random.fqdntest", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"53809802-8459-40be-ac74-349cb0249c51", "data":"\"challengetoken\"",
+        "name":"random.fulltest.example.com", "priority":0, "ttl":3600, "type":"TXT",
+        "comment":null}, {"id":"4ab87377-72f6-4db0-9251-7143e6f41715", "data":"\"challengetoken\"",
+        "name":"random.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"ef6d344a-fb90-4178-8f6c-3d5de52fdf6b", "data":"\"ttlshouldbe3600\"",
+        "name":"ttl.fqdn", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"b8575a0c-3cbf-49e2-ada3-dfac97ded926", "data":"\"challengetoken\"",
+        "name":"updated.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"541ae116-7cb0-4cf1-b2f2-c51f1eb0ce45", "data":"\"challengetoken\"",
+        "name":"updated.testfqdn", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"42e42e49-e529-4222-accf-4347f53fd268", "data":"\"challengetoken\"",
+        "name":"updated.testfull.example.com", "priority":0, "ttl":3600,
+        "type":"TXT", "comment":null}]}'
+    headers:
+      content-length:
+      - '2583'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:54 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 2089cb40-a256-4549-93f4-406a4b818c70
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"changes": [{"delete": {"id": "ba499026-6b01-476a-8871-3272a5ac02cf"}}]}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '73'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: PATCH
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/example.com/records
+  response:
+    body:
+      string: '{"records":[]}'
+    headers:
+      content-length:
+      - '14'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:54 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - 1c852cfb-daa9-4b4f-ae8f-a8d165a1fd82
+    status:
+      code: 200
+      message: OK
+- request:
+    body: 'null'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '4'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.scaleway.com/domain/v2beta1/dns-zones/example.com/records?page=1
+  response:
+    body:
+      string: '{"total_count":15, "records":[{"id":"f5836d62-5e3a-40fb-a618-b3d868633c54",
+        "data":"ns0.dom.scw.cloud.", "name":"", "priority":0, "ttl":1800, "type":"NS",
+        "comment":null}, {"id":"639c2716-f72f-471a-acdc-02b5d4001a01", "data":"ns1.dom.scw.cloud.",
+        "name":"", "priority":0, "ttl":1800, "type":"NS", "comment":null}, {"id":"300b8351-30ac-4807-9b6a-0284492c5c56",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.fqdn", "priority":0,
+        "ttl":3600, "type":"TXT", "comment":null}, {"id":"0917f4b3-be77-46ed-90d6-1708067bd65d",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.full.example.com",
+        "priority":0, "ttl":3600, "type":"TXT", "comment":null}, {"id":"dd6537d9-be1f-4766-911a-c91dd99bfbc2",
+        "data":"\"challengetoken\"", "name":"_acme-challenge.test", "priority":0,
+        "ttl":3600, "type":"TXT", "comment":null}, {"id":"73124e73-b66b-4753-9a07-cd0717862f73",
+        "data":"docs.example.com.example.com.", "name":"docs", "priority":0,
+        "ttl":3600, "type":"CNAME", "comment":null}, {"id":"65f60dd7-4468-4bc6-836f-020b5efb88f4",
+        "data":"127.0.0.1", "name":"localhost", "priority":0, "ttl":3600, "type":"A",
+        "comment":null}, {"id":"085d0296-1f9d-4737-89cb-548d44150af8", "data":"\"updated\"",
+        "name":"orig.nameonly.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"b61592ac-932f-432a-a749-905e12da9ce2", "data":"\"challengetoken\"",
+        "name":"random.fqdntest", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"53809802-8459-40be-ac74-349cb0249c51", "data":"\"challengetoken\"",
+        "name":"random.fulltest.example.com", "priority":0, "ttl":3600, "type":"TXT",
+        "comment":null}, {"id":"4ab87377-72f6-4db0-9251-7143e6f41715", "data":"\"challengetoken\"",
+        "name":"random.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"ef6d344a-fb90-4178-8f6c-3d5de52fdf6b", "data":"\"ttlshouldbe3600\"",
+        "name":"ttl.fqdn", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"b8575a0c-3cbf-49e2-ada3-dfac97ded926", "data":"\"challengetoken\"",
+        "name":"updated.test", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"541ae116-7cb0-4cf1-b2f2-c51f1eb0ce45", "data":"\"challengetoken\"",
+        "name":"updated.testfqdn", "priority":0, "ttl":3600, "type":"TXT", "comment":null},
+        {"id":"42e42e49-e529-4222-accf-4347f53fd268", "data":"\"challengetoken\"",
+        "name":"updated.testfull.example.com", "priority":0, "ttl":3600,
+        "type":"TXT", "comment":null}]}'
+    headers:
+      content-length:
+      - '2425'
+      content-security-policy:
+      - default-src 'none'; frame-ancestors 'none'
+      content-type:
+      - application/json
+      date:
+      - Thu, 13 Nov 2025 12:22:54 GMT
+      server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      strict-transport-security:
+      - max-age=63072000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - DENY
+      x-request-id:
+      - b02c7e55-6e48-4f97-a25d-58561d960153
+    status:
+      code: 200
+      message: OK
+version: 1
