@@ -39,6 +39,7 @@ class Provider(BaseProvider):
         parser.add_argument(
             "--auth-token", help="Specify Hetzner DNS or Cloud API token"
         )
+        parser.add_argument("--zone-id", help="Zone id for domain (optional)")
 
     def authenticate(self) -> None:
         self._hetzner_impl.authenticate()
@@ -94,6 +95,7 @@ class HetznerDns(BaseProvider):
     @staticmethod
     def configure_parser(parser: ArgumentParser) -> None:
         parser.add_argument("--auth-token", help="Specify Hetzner DNS API token")
+        parser.add_argument("--zone-id", help="Zone id for domain (optional)")
 
     def __init__(self, config):
         super(HetznerDns, self).__init__(config)
@@ -101,6 +103,9 @@ class HetznerDns(BaseProvider):
         self.api_endpoint = "https://dns.hetzner.com/api/v1"
 
     def authenticate(self):
+        self.domain_id = self._get_provider_option('zone_id')
+        if self.domain_id:
+            return
         provider = self._get_zone_by_domain(self.domain)
         self.domain_id = provider["id"]
 
@@ -279,12 +284,16 @@ class HetznerCloud(BaseProvider):
     @staticmethod
     def configure_parser(parser: ArgumentParser) -> None:
         parser.add_argument("--auth-token", help="Specify Hetzner DNS API token")
+        parser.add_argument("--zone-id", help="Zone id for domain (optional)")
 
     def __init__(self, config: Union[ConfigResolver, dict[str, Any]]):
         super(HetznerCloud, self).__init__(config)
         self.domain_id = None
 
     def authenticate(self) -> None:
+        self.domain_id = self._get_provider_option('zone_id')
+        if self.domain_id:
+            return
         self.domain_id = self._fetch_zone(self.domain)["id"]
 
     def create_record(self, rtype: str, name: str, content: str) -> bool:
